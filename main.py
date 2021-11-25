@@ -1,20 +1,16 @@
 from sqlalchemy import create_engine
 import urllib
 import os
-
+from decouple import config
 
 def connect(db_uri):
     engine = create_engine(db_uri)
     engine.connect()
     print('Hey! You successfully connected to your CockroachDB cluster.')
 
-
-if __name__ == '__main__':
-    conn_string = input('Enter your node\'s connection string:\n')
-    # For cockroach demo:
-    # cockroachdb://demo:<demo_password>@127.0.0.1:26257/defaultdb?sslmode=require
-    # For CockroachCloud:
-    # cockroachdb://<username>:<password>@<globalhost>:26257/<cluster_name>.defaultdb?sslmode=verify-full&sslrootcert=<certs_dir>/<ca.crt>
+def main():
+    # conn_string = input('Enter your node\'s connection string:\n')
+    conn_string = config('CONNECTION_STRING', default='guess_me')
 
     try:
         db_uri = os.path.expandvars(conn_string)
@@ -26,3 +22,6 @@ if __name__ == '__main__':
     except Exception as e:
         print('Failed to connect to database.')
         print('{0}'.format(e))
+
+if __name__ == '__main__':
+    main()

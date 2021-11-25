@@ -6,7 +6,19 @@ To run the code:
 2. From the command line, execute the following:
 
     ~~~
+    virtualenv env
+    ~~~
+    ~~~
+    source env/bin/activate
+    ~~~
+    ~~~
+    pip3 install sqlalchemy sqlalchemy-cockroachdb psycopg2 python-decouple
+    ~~~
+    ~~~
     python3 main.py
+    ~~~
+    ~~~
+    deactivate
     ~~~
 
 3. Enter the connection string for the cluster.
